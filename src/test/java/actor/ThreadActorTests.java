@@ -1,15 +1,11 @@
 /**
  * 
  */
-package com.benbria.actor.tests;
+package actor;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
-import com.benbria.actor.Actor;
-import com.benbria.actor.Behaviour;
-import com.benbria.actor.ThreadActor;
 
 /**
  * @author Eric des Courtis

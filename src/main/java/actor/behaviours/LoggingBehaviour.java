@@ -1,4 +1,4 @@
-package com.benbria.actor.behaviours;
+package actor.behaviours;
 
 /**
  * @author Eric des Courtis
@@ -29,32 +29,27 @@ package com.benbria.actor.behaviours;
 	THE SOFTWARE.
  */
 
-import java.util.LinkedList;
-import java.util.List;
 
-import com.benbria.actor.Actor;
-import com.benbria.actor.Behaviour;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.logging.Logger;
 
-public class BroadcastBehaviour<T> implements Behaviour<T> {
-    private List<Behaviour<T>> behaviourList = new LinkedList<Behaviour<T>>();
+import actor.Actor;
+import actor.Behaviour;
 
-    public BroadcastBehaviour(List<Behaviour<T>> behaviourList) {
-        this.behaviourList.addAll(behaviourList);
-    }
-
+public final class LoggingBehaviour<T> implements
+Behaviour<T> {
+    private final static Logger logger = Logger.getLogger(LoggingBehaviour.class.getName());
     @Override
     public boolean receive(Actor<T> self, T msg) {
-        boolean result = true;
-        for(Behaviour<T>  behaviour: behaviourList){
-            result &= behaviour.receive(self, msg);
-        }
-        return result;
+        logger.info(self + ": " + msg);
+        return true;
     }
 
     @Override
     public void exception(Actor<T> self, Exception e) {
-        for(Behaviour<T>  behaviour: behaviourList){
-            behaviour.exception(self, e);
-        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        e.printStackTrace(new PrintStream(baos, true));
+        logger.severe(self + ": " + baos.toString());
     }
 }

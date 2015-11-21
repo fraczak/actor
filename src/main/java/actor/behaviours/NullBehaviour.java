@@ -1,4 +1,4 @@
-package com.benbria.actor;
+package actor.behaviours;
 
 /**
  * @author Eric des Courtis
@@ -27,9 +27,18 @@ package com.benbria.actor;
 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
-*/
+ */
 
+import actor.Actor;
+import actor.Behaviour;
 
-public interface Actor<T> extends Runnable {
-	public abstract void send(T msg) throws InterruptedException;
+public final class NullBehaviour<T> implements
+Behaviour<T> {
+    @Override
+    public boolean receive(Actor<T> self, T msg) {
+        return true;
+    }
+
+    @Override
+    public void exception(Actor<T> actor, Exception e) { }
 }

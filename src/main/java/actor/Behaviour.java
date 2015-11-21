@@ -1,4 +1,4 @@
-package com.benbria.actor.behaviours;
+package actor;
 
 /**
  * @author Eric des Courtis
@@ -27,18 +27,21 @@ package com.benbria.actor.behaviours;
 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
- */
+*/
 
-import com.benbria.actor.Actor;
-import com.benbria.actor.Behaviour;
 
-public final class NullBehaviour<T> implements
-Behaviour<T> {
-    @Override
-    public boolean receive(Actor<T> self, T msg) {
-        return true;
-    }
-
-    @Override
-    public void exception(Actor<T> actor, Exception e) { }
+public interface Behaviour<T> {
+	/**
+	 * 
+	 * @param self
+	 * @param msg
+	 * @return - `false` - stop the actor; `true` - continue
+	 */
+    boolean receive(Actor<T> self, T msg);
+    /**
+     * Exception thrown by the actor `self`. The thread is dead.
+     * @param self
+     * @param e
+     */
+    void exception(Actor<T> self, Exception e);
 }

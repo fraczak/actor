@@ -1,4 +1,4 @@
-package com.benbria.actor;
+package actor;
 
 /**
  * @author Eric des Courtis
@@ -88,6 +88,7 @@ public final class ThreadActor<T> implements Actor<T> {
         this(behaviour, new LinkedBlockingQueue<T>());
     }
 
+    @Override
     public void run() {
         try {
             while( behaviour.receive(this, queue.take()) ){};
